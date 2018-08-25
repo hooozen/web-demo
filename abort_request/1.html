@@ -1,0 +1,107 @@
+<!DOCTYE HTML>
+<html>
+  <head>
+    <meta charset='utf-8'>
+  </head>
+  <body>
+    <button id="xhr-request">XHR 发送请求</button>
+    <button id="xhr-abort">取消 XHR 请求</button>
+
+    <button id="fetch-request">Fetch 发送请求</button>
+    <button id="fetch-abort">取消 Fetch 请求</button>
+
+    <button id="_fetch-request">封装 _Fetch 发送请求</button>
+    <button id="_fetch-abort">取消 _Fetch 请求</button>
+  </body>
+  <script type="text/javaScript">
+    var xhrRequestBtn = document.querySelector('#xhr-request');
+    var xhrAbortBtn= document.querySelector('#xhr-abort');
+    var fetchBtn = document.querySelector('#fetch-request');
+    var abortFetchBtn= document.querySelector('#fetch-abort');
+    var _fetchBtn = document.querySelector('#_fetch-request');
+    var _abortFetchBtn= document.querySelector('#_fetch-abort');
+
+    var url = 'http://yapi.demo.qunar.com/mock/16688/slowspeed?later=2'
+    var data = {
+      later: 2,
+    };
+
+    var xhr = new XMLHttpRequest();
+    var controller = new AbortController();
+    var signal = controller.signal;
+
+    xhrRequestBtn.addEventListener('click', sendXHRRequest);
+    xhrAbortBtn.addEventListener('click', abortXHRRequest);
+
+    fetchBtn.addEventListener('click', startFetch);
+    abortFetchBtn.addEventListener('click', abortFetch);
+
+    _fetchBtn.addEventListener('click', _startFetch);
+    _abortFetchBtn.addEventListener('click', _abortFetch);
+
+    /* XHR 请求和取消 start */
+    function sendXHRRequest() {
+      xhr.open('POST', url);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          console.log('XHR: ', xhr.responseText);
+        }
+      }
+      xhr.send(JSON.stringify(data));
+    }
+    
+    function abortXHRRequest() {
+      console.log('尝试取消 XHR 请求');
+      xhr.abort();
+    }
+    /* XHR 请求和取消 end */
+
+    /* Fetch 请求和取消 start */
+    function startFetch() {
+      fetch(url, {
+        method: 'POST',
+        signal,
+      }).then(res => {
+        res.text().then(text => {
+          console.log('Fetch: ', text);
+        });
+      }).catch(error => {
+        console.log(error);
+      });
+    }
+
+    function abortFetch() {
+      console.debug('尝试取消 fetch 请求');
+      controller.abort();
+    }
+    /* Fetch 请求和取消 end */
+
+    /* 封装一个 Fetch start */
+    function _fetch (url, options) {
+      var abort = null;
+      var abortPromise = new Promise((resolve, reject) => {
+        abort = reject;
+      });
+      var fetchPromise = fetch(url, options);
+      var promise = Promise.race([abortPromise, fetchPromise]);
+      promise.abort = abort;
+      return promise;
+    }
+    var fetchAPI;
+    function _startFetch() {
+      fetchAPI = _fetch(url, { method: 'POST' });
+      fetchAPI.then(res => {
+        res.text().then(text => {
+          console.log('_fetch: ', text);
+        });
+      }).catch(e => {
+        console.log(e);
+      });
+    }
+    function _abortFetch() {
+      console.log('"取消"_fetch请求');
+      fetchAPI.abort('abort 竞速成功');
+    }
+    /* 封装一个 Fetch end */
+  </script>
+</html>
