@@ -1,0 +1,30 @@
+<!DOCTYE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <button id="xhr-request">XHR 发送请求</button>
+  <button id="xhr-abort">取消 XHR 请求</button>
+
+  <button id="fetch-request">Fetch 发送请求</button>
+  <button id="fetch-abort">取消 Fetch 请求</button>
+
+  <button id="_fetch-request">封装 _Fetch 发送请求</button>
+  <button id="_fetch-abort">取消 _Fetch 请求</button>
+</body>
+
+<script type="text/javaScript">
+    var url = 'http://yapi.demo.qunar.com/mock/16688/slowspeed?later=2'
+    var data = {
+      later: 2,
+    };
+</script>
+<script type="text/javaScript" src="./xhr.js"></script>
+<script type="text/javaScript" src="./fetch.js"></script>
+<script type="text/javaScript" src="./_fetch.js"></script>
+
+</html>
