@@ -10,11 +10,21 @@
   <button id="xhr-request">XHR 发送请求</button>
   <button id="xhr-abort">取消 XHR 请求</button>
 
+  <div class="hr"></div>
+
   <button id="fetch-request">Fetch 发送请求</button>
   <button id="fetch-abort">取消 Fetch 请求</button>
 
-  <button id="_fetch-request">封装 _Fetch 发送请求</button>
+  <div class="hr"></div>
+
+  <button id="_fetch-request">_Fetch 发送请求</button>
   <button id="_fetch-abort">取消 _Fetch 请求</button>
+
+  <div class="hr"></div>
+
+  <button id="axios-request">Axios 发送请求</button>
+  <button id="axios-abort">取消 Axios 请求</button>
+
 </body>
 
 <script type="text/javaScript">
@@ -23,8 +33,10 @@
       later: 2,
     };
 </script>
-<script type="text/javaScript" src="./xhr.js"></script>
-<script type="text/javaScript" src="./fetch.js"></script>
-<script type="text/javaScript" src="./_fetch.js"></script>
+<script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="./xhr.js"></script>
+<script type="text/javascript" src="./fetch.js"></script>
+<script type="text/javascript" src="./_fetch.js"></script>
+<script type="text/javascript" src="./axios.js"></script>
 
 </html>

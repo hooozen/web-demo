@@ -7,3 +7,10 @@ button {
   background: #2890ec;
   border-radius: 2px;
 }
+
+.hr {
+  height: 1px;
+  width: 90%;
+  background: #dadada;
+  margin: 10px 0;
+}
