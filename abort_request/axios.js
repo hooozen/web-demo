@@ -10,10 +10,10 @@ var source = CancelToken.source();
 var axios = new axios.Axios({});
 
 function axiosPost() {
-  axios.post(url, {
+  axios.post(url, undefined, {
     cancelToken: source.token,
   }).then(function(res) {
-    console.log('Axios: ', res);
+    console.log('Axios: ', res.data);
   }).catch(e => {
     console.log('Axios error: ', e);
   });
@@ -21,5 +21,5 @@ function axiosPost() {
 
 function abortAxios() {
   console.log('尝试取消 axios 请求');
-  source.cancel();
+  source.cancel('axios 被取消');
 }
