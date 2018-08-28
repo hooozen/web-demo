@@ -25,9 +25,9 @@ function startFetch() {
 }
 
 /**
- * 取消 fetch 请求
+ * 终止 fetch 请求
  */
 function abortFetch() {
-  console.debug('尝试取消 fetch 请求');
+  console.log('尝试终止 fetch 请求');
   controller.abort();
 }

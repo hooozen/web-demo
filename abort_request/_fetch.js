@@ -40,6 +40,6 @@ function _startFetch() {
  * 跳过请求处理
  */
 function _abortFetch() {
-  console.log('"取消"_fetch请求');
+  console.log('"终止"_fetch请求');
   fetchAPI.abort('abort 竞速成功');
 }

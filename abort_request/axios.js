@@ -7,8 +7,9 @@ abortAxiosBtn.addEventListener('click', abortAxios);
 var CancelToken = axios.CancelToken;
 var source = CancelToken.source();
 
-var axios = new axios.Axios({});
-
+/**
+ * 开始一个 Axios Post 请求
+ */
 function axiosPost() {
   axios.post(url, undefined, {
     cancelToken: source.token,
@@ -19,7 +20,10 @@ function axiosPost() {
   });
 }
 
+/**
+ * 终止一个 Axios 请求
+ */
 function abortAxios() {
-  console.log('尝试取消 axios 请求');
-  source.cancel('axios 被取消');
+  console.log('尝试终止 axios 请求');
+  source.cancel('axios 被终止');
 }
